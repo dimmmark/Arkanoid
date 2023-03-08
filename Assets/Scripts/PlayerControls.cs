@@ -10,6 +10,7 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] float _jumpSpeed;
     [SerializeField] float _friction;
     public bool _isGrounded;
+    [SerializeField] SoundManager _soundManager;
     void Start()
     {
         _rigitbody2D = GetComponent<Rigidbody2D>();

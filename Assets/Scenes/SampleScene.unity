@@ -1191,6 +1191,26 @@ MonoBehaviour:
     Volume: 1
     Pitch: 1.03
     Source: {fileID: 0}
+  - name: kickJump
+    Clip: {fileID: 8300000, guid: a8d771591e0090d41aa5ca52c5cfd1e1, type: 3}
+    Volume: 0.518
+    Pitch: 1.03
+    Source: {fileID: 0}
+  - name: hit
+    Clip: {fileID: 8300000, guid: d3cd87d3bde103d48b80005d25f7974e, type: 3}
+    Volume: 0.518
+    Pitch: 1.03
+    Source: {fileID: 0}
+  - name: hitBig
+    Clip: {fileID: 8300000, guid: aef7d0cbf8fcc814c86f23e6253d6bed, type: 3}
+    Volume: 0.518
+    Pitch: 1.03
+    Source: {fileID: 0}
+  - name: hitWall
+    Clip: {fileID: 8300000, guid: 4003553bc253f5f42a60363b3923d8f2, type: 3}
+    Volume: 0.518
+    Pitch: 1.03
+    Source: {fileID: 0}
 --- !u!4 &797243630
 Transform:
   m_ObjectHideFlags: 0
@@ -1388,6 +1408,7 @@ MonoBehaviour:
   _jumpSpeed: 250
   _friction: 1
   _isGrounded: 0
+  _soundManager: {fileID: 797243629}
 --- !u!50 &846860247
 Rigidbody2D:
   serializedVersion: 4
@@ -2463,6 +2484,7 @@ MonoBehaviour:
   _speedBounceJump: 75
   _friction: 0
   _playerControls: {fileID: 846860246}
+  _soundManager: {fileID: 797243629}
   game: {fileID: 360423132}
 --- !u!58 &1868064130
 CircleCollider2D:
