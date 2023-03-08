@@ -217,7 +217,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 17540744}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 14422e3ba12e5bd4f9d3bd86f10dbc79, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -737,8 +737,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e598baddd9677241ae480f3915aca34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.15
-  _jumpSpeed: 10
+  _speed: 20
+  _jumpSpeed: 12
   _friction: 1
   _isGrounded: 0
 --- !u!50 &846860247
@@ -754,7 +754,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.25
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -776,7 +776,7 @@ ConstantForce2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 846860243}
   m_Enabled: 1
-  m_Force: {x: 0, y: -50}
+  m_Force: {x: 0, y: -75}
   m_RelativeForce: {x: 0, y: 0}
   m_Torque: 0
 --- !u!1 &1208790886
@@ -1293,7 +1293,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1868064127
 Rigidbody2D:
   serializedVersion: 4
