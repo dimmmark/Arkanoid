@@ -7,6 +7,7 @@ public class Game : MonoBehaviour
 {
     [SerializeField] float timeFade;
     [SerializeField] UnityEngine.UI.Image imageFade;
+    [SerializeField] SoundManager _soundManager;
     void Start()
     {
         int level = SceneManager.GetActiveScene().buildIndex;
@@ -14,6 +15,7 @@ public class Game : MonoBehaviour
 
     public void RestartLevel()
     {
+        _soundManager.Play("lose");
         StartCoroutine(Fade());
     }
     IEnumerator Fade()
