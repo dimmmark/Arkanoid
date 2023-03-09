@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
@@ -10,10 +7,15 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] float _jumpSpeed;
     [SerializeField] float _friction;
     public bool _isGrounded;
+    [SerializeField] bool _isMoving;
     [SerializeField] SoundManager _soundManager;
+    [SerializeField] Animator _animator;
+    Vector3 _previosMousePosition;
+    float _timer;
     void Start()
     {
         _rigitbody2D = GetComponent<Rigidbody2D>();
+        _previosMousePosition = Input.mousePosition;
     }
     void Update()
     {
@@ -21,13 +23,26 @@ public class PlayerControls : MonoBehaviour
         {
             _rigitbody2D.AddForce(Vector2.up * _jumpSpeed, ForceMode2D.Impulse);
         }
+        _timer += Time.deltaTime;
+        if (_timer > 0.2f)
+        {
+            Vector3 _currentPosition = Input.mousePosition;
+            if (_previosMousePosition != _currentPosition)
+                _animator.CrossFade("Run Animation", 0.01f);
+            else
+            {
+                _animator.CrossFade("Idle Animation", .01f);
+            }
+            _previosMousePosition = _currentPosition;
+            _timer = 0;
+        }
     }
     private void FixedUpdate()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float targetPosotion = Mathf.Clamp(mousePos.x, -12f, 13f);
         Vector2 targetPosition = new Vector2(targetPosotion, transform.position.y);
-       transform.position = Vector2.Lerp(transform.position, targetPosition, _speed * Time.deltaTime);
+        transform.position = Vector2.Lerp(transform.position, targetPosition, _speed * Time.deltaTime);
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -35,6 +50,7 @@ public class PlayerControls : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        _isGrounded = false;    
+        _isGrounded = false;
+        _animator.CrossFade("Jump Animation", 0.01f);
     }
 }
