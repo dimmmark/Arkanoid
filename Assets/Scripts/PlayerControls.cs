@@ -12,6 +12,8 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] Animator _animator;
     Vector3 _previosMousePosition;
     float _timer;
+    
+    bool flag;
     void Start()
     {
         _rigitbody2D = GetComponent<Rigidbody2D>();
@@ -34,7 +36,6 @@ public class PlayerControls : MonoBehaviour
                 _animator.CrossFade("Run Animation", 0.01f);
                 _soundManager.Play("step");
             }
-
             else
             {
                 _animator.CrossFade("Idle Animation", .01f);
@@ -57,7 +58,5 @@ public class PlayerControls : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         _isGrounded = false;
-        
-
     }
 }

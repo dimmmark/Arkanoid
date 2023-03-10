@@ -22,6 +22,8 @@ public class Game : MonoBehaviour
         _healthUI.Setup(_maxHealth);
         _healthUI.LifeIconOff(_health);
         UpdateInfo();
+        Ball _newBall = Instantiate(_ballPrefab, transform.position, Quaternion.identity);
+        _newBall.Init(_playerControls, _soundManager, this);
     }
 
     public void StartFade()
@@ -48,7 +50,6 @@ public class Game : MonoBehaviour
         }
         else
             RestartLevel();
-
     }
     public void RestartLevel()
     {
@@ -60,6 +61,12 @@ public class Game : MonoBehaviour
         _points++;
         UpdateInfo();
     }
+
+    public void AddOneLife()
+    {
+       _health++;
+        _healthUI.LifeIconOff(_health);
+    }
     private void UpdateInfo()
     {
         _textPoints.text = _points.ToString();
@@ -67,9 +74,15 @@ public class Game : MonoBehaviour
     private void OnEnable()
     {
         Ball.OnCollidedDot += AddOnePoint;
+        DotBonus.OnAddBonusLife += AddOneLife;
     }
     private void OnDisable()
     {
         Ball.OnCollidedDot -= AddOnePoint;
+        DotBonus.OnAddBonusLife -= AddOneLife;
+    }
+    private void Update()
+    {
+        Debug.Log(_health);
     }
 }

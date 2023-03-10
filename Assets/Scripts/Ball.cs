@@ -18,12 +18,6 @@ public class Ball : MonoBehaviour
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
     }
-
-   
-    void Update()
-    {
-        
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Vector2 vectorAtract = collision.contacts[0].normal;
@@ -44,9 +38,9 @@ public class Ball : MonoBehaviour
         else if(collision.gameObject.GetComponent<Floor>())
         {
             _game.StartFade();
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
-        else if (collision.gameObject.GetComponent<DotBig>())
+        else if (collision.gameObject.GetComponent<DotBonus>())
         {
             _soundManager.Play("hitBig");
             _rigidbody2D.AddForce(vectorAtract * _speedBounceJump, ForceMode2D.Impulse);
@@ -60,5 +54,5 @@ public class Ball : MonoBehaviour
         _soundManager = soundManager;
         _game = game;
     }
-    
+
 }
