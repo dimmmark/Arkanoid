@@ -11,8 +11,9 @@ public class Ball : MonoBehaviour
     [SerializeField] float _friction;
     [SerializeField] PlayerControls _playerControls;
     [SerializeField] SoundManager _soundManager;
-    [SerializeField] Game game;
+    [SerializeField] Game _game;
     public static event Action OnCollidedDot;
+    public static event Action OnBallLose;
     void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -42,7 +43,7 @@ public class Ball : MonoBehaviour
         }
         else if(collision.gameObject.GetComponent<Floor>())
         {
-            game.RestartLevel();
+            _game.StartFade();
             gameObject.SetActive(false);
         }
         else if (collision.gameObject.GetComponent<DotBig>())
@@ -52,6 +53,12 @@ public class Ball : MonoBehaviour
         }
         else
             _soundManager.Play("hitWall");
+    }
+    public void Init(PlayerControls playerControls, SoundManager soundManager, Game game)
+    {
+        _playerControls = playerControls;
+        _soundManager = soundManager;
+        _game = game;
     }
     
 }

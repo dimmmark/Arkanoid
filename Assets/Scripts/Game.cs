@@ -3,22 +3,28 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class Game : MonoBehaviour
 {
+    [SerializeField] int _maxHealth;
+    [SerializeField] int _health;
     [SerializeField] float timeFade;
     [SerializeField] UnityEngine.UI.Image imageFade;
     [SerializeField] SoundManager _soundManager;
+    [SerializeField] PlayerControls _playerControls;
+    [SerializeField] HealthUI _healthUI;
     [SerializeField] TextMeshProUGUI _textPoints;
     [SerializeField] int _points;
+    [SerializeField] Ball _ballPrefab;
     void Start()
     {
         int level = SceneManager.GetActiveScene().buildIndex;
+        _healthUI.Setup(_maxHealth);
+        _healthUI.LifeIconOff(_health);
         UpdateInfo();
     }
 
-    public void RestartLevel()
+    public void StartFade()
     {
         _soundManager.Play("lose");
         StartCoroutine(Fade());
@@ -32,6 +38,20 @@ public class Game : MonoBehaviour
             i += 0.02f;
             yield return new WaitForSeconds(timeFade);
         }
+        if (_health > 0)
+        {
+            imageFade.color = new Color(0, 0, 0, 0);
+            _health--;
+            _healthUI.LifeIconOff(_health);
+            Ball _newBall = Instantiate(_ballPrefab, transform.position, Quaternion.identity);
+            _newBall.Init(_playerControls, _soundManager, this);
+        }
+        else
+            RestartLevel();
+
+    }
+    public void RestartLevel()
+    {
         int restart = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(restart);
     }

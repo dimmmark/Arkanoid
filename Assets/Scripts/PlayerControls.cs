@@ -22,13 +22,19 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && _isGrounded)
         {
             _rigitbody2D.AddForce(Vector2.up * _jumpSpeed, ForceMode2D.Impulse);
+            _animator.CrossFade("Jump Animation", 0.01f);
+            _soundManager.Play("jump");
         }
         _timer += Time.deltaTime;
         if (_timer > 0.2f)
         {
             Vector3 _currentPosition = Input.mousePosition;
             if (_previosMousePosition != _currentPosition)
+            {
                 _animator.CrossFade("Run Animation", 0.01f);
+                _soundManager.Play("step");
+            }
+
             else
             {
                 _animator.CrossFade("Idle Animation", .01f);
@@ -40,7 +46,7 @@ public class PlayerControls : MonoBehaviour
     private void FixedUpdate()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float targetPosotion = Mathf.Clamp(mousePos.x, -12f, 13f);
+        float targetPosotion = Mathf.Clamp(mousePos.x, -11f, 12f);
         Vector2 targetPosition = new Vector2(targetPosotion, transform.position.y);
         transform.position = Vector2.Lerp(transform.position, targetPosition, _speed * Time.deltaTime);
     }
@@ -51,6 +57,7 @@ public class PlayerControls : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         _isGrounded = false;
-        _animator.CrossFade("Jump Animation", 0.01f);
+        
+
     }
 }
