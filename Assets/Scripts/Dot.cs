@@ -4,7 +4,7 @@ using UnityEngine;
 public class Dot : MonoBehaviour
 {
     public float bounceDistance = 0.2f; // Расстояние для отскока
-    public float bounceDuration = 0.01f; // Продолжительность отскока
+    public float bounceDuration = 0.1f; // Продолжительность отскока
     public float returnDuration = .03f; // Продолжительность возвращения на место
 
     private Vector3 initialPosition; // Начальная позиция объекта
