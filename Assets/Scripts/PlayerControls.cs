@@ -12,8 +12,6 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] Animator _animator;
     Vector3 _previosMousePosition;
     float _timer;
-    
-    bool flag;
     void Start()
     {
         _rigitbody2D = GetComponent<Rigidbody2D>();

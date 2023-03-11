@@ -5,7 +5,6 @@ public class HealthUI : MonoBehaviour
 {
     [SerializeField] GameObject _lifeIconPrefab;
     [SerializeField] List<GameObject> _lifeIcons = new List<GameObject>();
-    
     public void Setup(int maxHealth)
     {
         for (int i = 0; i < maxHealth; i++)

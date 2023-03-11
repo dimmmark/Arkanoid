@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,14 +21,17 @@ public class Game : MonoBehaviour
         _healthUI.Setup(_maxHealth);
         _healthUI.LifeIconOff(_health);
         UpdateInfo();
-        Ball _newBall = Instantiate(_ballPrefab, transform.position, Quaternion.identity);
-        _newBall.Init(_playerControls, _soundManager, this);
+        MakeBall();
     }
-
     public void StartFade()
     {
         _soundManager.Play("lose");
         StartCoroutine(Fade());
+    }
+    void MakeBall()
+    {
+        Ball _newBall = Instantiate(_ballPrefab, transform.position, Quaternion.identity);
+        _newBall.Init(_playerControls, _soundManager, this);
     }
     IEnumerator Fade()
     {
@@ -45,8 +47,7 @@ public class Game : MonoBehaviour
             imageFade.color = new Color(0, 0, 0, 0);
             _health--;
             _healthUI.LifeIconOff(_health);
-            Ball _newBall = Instantiate(_ballPrefab, transform.position, Quaternion.identity);
-            _newBall.Init(_playerControls, _soundManager, this);
+            MakeBall();
         }
         else
             RestartLevel();
@@ -80,9 +81,5 @@ public class Game : MonoBehaviour
     {
         Ball.OnCollidedDot -= AddOnePoint;
         DotBonus.OnAddBonusLife -= AddOneLife;
-    }
-    private void Update()
-    {
-        Debug.Log(_health);
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class DotBonus : MonoBehaviour
+public class DotBonus : Dot
 {
     [SerializeField] GameObject[] _stars;
     [SerializeField] BonusLife _lifeBonusPrefab;
@@ -10,7 +10,6 @@ public class DotBonus : MonoBehaviour
     [SerializeField] int _bonusTuched;
     [SerializeField] GameObject _bonusIcon;
     public static event System.Action OnAddBonusLife;
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         _bonusTuched++;
@@ -22,6 +21,7 @@ public class DotBonus : MonoBehaviour
             BonusStarOn();
             StartShowBonus();
         }
+        
     }
     private void BonusStarOn()
     {
@@ -30,7 +30,6 @@ public class DotBonus : MonoBehaviour
             if(i < _bonusTuched)
             {
                 _stars[i].SetActive(true);
-                
             }
             else
                 _stars[i].SetActive(false);

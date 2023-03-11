@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -29,21 +27,23 @@ public class Ball : MonoBehaviour
                 ForceMode2D.Impulse);
             
         }
-        else if(collision.gameObject.GetComponent<Dot>())
+        else if(collision.gameObject.TryGetComponent<Dot>(out Dot dot))
         {
             _soundManager.Play("hit");
             _rigidbody2D.AddForce(vectorAtract * _speedBounceJump, ForceMode2D.Impulse);
             OnCollidedDot?.Invoke();
+            dot.TakeHit(vectorAtract);
         }
         else if(collision.gameObject.GetComponent<Floor>())
         {
             _game.StartFade();
             Destroy(gameObject);
         }
-        else if (collision.gameObject.GetComponent<DotBonus>())
+        else if (collision.gameObject.TryGetComponent<DotBonus>( out DotBonus dotBonus))
         {
             _soundManager.Play("hitBig");
             _rigidbody2D.AddForce(vectorAtract * _speedBounceJump, ForceMode2D.Impulse);
+            dotBonus.TakeHit(vectorAtract);
         }
         else
             _soundManager.Play("hitWall");
